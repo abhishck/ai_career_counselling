@@ -1,47 +1,72 @@
-const Hero = () => {
+import React from "react";
+import { motion } from "framer-motion";
+import heroImg from "../assets/hero.png";
+
+function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center bg-gray-50">
+    <section
+      id="hero"
+      className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 text-white py-24 overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+        {/* LEFT CONTENT */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
 
-        <div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-            AI Powered <span className="text-blue-600">Career Counselling</span>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            Discover Your Perfect
+            <span className="text-yellow-300"> Career Path </span>
+            with AI
           </h1>
 
-          <p className="mt-6 text-gray-600 text-lg">
-            Choosing the right career path can be confusing. Our AI powered
-            system helps students and professionals discover the best career
-            opportunities based on their interests, skills and education.
+          <p className="text-lg text-blue-100 mb-8">
+            Our AI-powered career counsellor analyzes your interests,
+            skills, and personality to recommend the best career paths
+            for your future.
           </p>
 
-          <p className="mt-4 text-gray-600">
-            The platform analyzes multiple factors and generates personalized
-            career recommendations along with a clear roadmap for success.
-          </p>
+          <div className="flex gap-4">
 
-          <div className="mt-8 flex gap-4 flex-wrap">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-              Start Assessment
+            <button className="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition">
+              Start Career Test
             </button>
 
-            <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition">
-              Explore Careers
+            <button className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-blue-700 transition">
+              Learn More
             </button>
+
           </div>
-        </div>
 
-        <div className="flex justify-center">
+        </motion.div>
+
+        {/* RIGHT IMAGE */}
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+
           <img
-            src="https://img.freepik.com/free-vector/professional-career-elements-design_1200-212.jpg?semt=ais_hybrid&w=740&q=80"
-            className="w-96 rounded-lg cursor-pointer"
+            src={heroImg}
+            alt="AI Career Guidance"
+            className="w-full drop-shadow-2xl"
           />
-        </div>
+
+        </motion.div>
 
       </div>
 
+      {/* FLOATING CIRCLES BACKGROUND */}
+
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
+
     </section>
   );
-};
+}
 
 export default Hero;
