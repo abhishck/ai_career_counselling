@@ -1,0 +1,30 @@
+{
+  "name": "ai-career-counsellor-server",
+  "version": "1.0.0",
+  "description": "Express backend for AI Career Counselling MERN project",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "mern",
+    "ai",
+    "career-counselling"
+  ],
+  "author": "Abhishek Rathore",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "mongoose": "^8.3.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
