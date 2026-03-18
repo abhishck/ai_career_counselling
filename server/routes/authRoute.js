@@ -1,8 +1,11 @@
 import express from "express";
-import { currentUser, login, register } from "../controllers/userController";
+import { currentUser, login, register } from "../controllers/userController.js";
+import validateToken from "../middleware/validateToken.js"
 
-const router=express.Router();
+const authRouter=express.Router();
 
-router.post("/register",register)
-router.post("/login",login)
-router.get("/current",validateToken,currentUser);
+authRouter.post("/register",register)
+authRouter.post("/login",login)
+authRouter.get("/current",validateToken,currentUser);
+
+export default authRouter;

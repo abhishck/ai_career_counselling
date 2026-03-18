@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../api/axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -16,7 +17,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -26,7 +27,13 @@ const Register = () => {
 
     console.log("User Data:", formData);
 
-    // TODO: send data to backend
+    const response=await api.post("/auth/register",formData);
+     if(response.data.status){
+      localStorage.setItem("token",response.data.token)
+      console.log(response.data.message)
+     }else{
+      console.log(response.data.message)
+     }
   };
 
   return (
@@ -40,9 +47,9 @@ const Register = () => {
           {/* Name */}
           <input
             type="text"
-            name="name"
+            name="username"
             placeholder="Full Name"
-            value={formData.name}
+            value={formData.username}
             onChange={handleChange}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

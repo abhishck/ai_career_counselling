@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../api/axios";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -18,20 +19,15 @@ const Login = () => {
     e.preventDefault();
 
     console.log("Login Data:", formData);
-
-    // 🔗 Backend API call (next step)
-    /*
-    const res = await fetch("http://localhost:3001/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-    console.log(data);
-    */
+    
+    const response=await api.post("/auth/login",formData);
+    if(response.data.status){
+      localStorage.setItem("token",response.data.token);
+      console.log(response.data.message);
+    }else{
+      console.log(response.data.message)
+    }
+   
   };
 
   return (

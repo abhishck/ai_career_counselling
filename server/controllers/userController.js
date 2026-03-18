@@ -14,7 +14,7 @@ export const register = async (req, res) => {
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res
-        .status(401)
+        .status(409)
         .json({ status: false, message: "user already exist!" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -42,7 +42,7 @@ export const register = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    console.log(`register error : ${error.message}`);
+    console.log(`register error : ${error}`);
     return res
       .status(500)
       .json({ status: false, message: "internal server error" });
