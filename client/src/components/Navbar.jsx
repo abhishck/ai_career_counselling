@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import  { Link } from "react-router-dom"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -24,10 +25,15 @@ const Navbar = () => {
           </div>
 
           {/* LOGIN BUTTON */}
-          <div className="hidden md:block">
-            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-              Login
-            </button>
+          <div className="hidden md:flex md:gap-3 md:items-center">
+           <Link to="/register">
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+              Get Started
+            </button></Link>
+             <Link to="/login">
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+             Login
+            </button></Link>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -73,10 +79,15 @@ const Navbar = () => {
             AboutUs
           </a>
 
-          <div className="p-4">
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg">
+          <div className="p-4 flex justify-between items-center">
+             <Link to="/register">
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+              Get Started
+            </button></Link>
+             <Link to="/login">
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
               Login
-            </button>
+            </button></Link>
           </div>
 
         </div>
