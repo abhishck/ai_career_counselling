@@ -1,23 +1,26 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import "./App.css";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar.jsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext.jsx";
 import CareerStart from "./pages/CareerStart.jsx";
 import CareerForm from "./pages/CareerForm.jsx";
 import CareerTest from "./pages/CareerTest.jsx";
 import Register from "./components/Register.jsx";
 import Login from "./components/Login.jsx";
 import ResumeUpload from "./pages/ResumeUpload.jsx";
+import Chatbot from "./pages/Chatbot.jsx";
+
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/career-start" element={<CareerStart />} />
@@ -26,6 +29,14 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resume-upload" element={<ResumeUpload />} />
+        <Route
+          path="/chatbot"
+          element={
+            <PrivateRoute>
+              <Chatbot />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

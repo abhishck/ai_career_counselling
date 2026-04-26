@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -17,7 +20,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -27,17 +30,24 @@ const Register = () => {
 
     console.log("User Data:", formData);
 
-    const response=await api.post("/auth/register",formData);
-     if(response.data.status){
-      localStorage.setItem("token",response.data.token)
-      console.log(response.data.message)
-     }else{
-      console.log(response.data.message)
-     }
+    try {
+      const response = await api.post("/auth/register", formData);
+      if (response.data.status) {
+        login(response.data.token);
+        navigate("/");
+      } else {
+        alert(response.data.message || "Registration failed.");
+      }
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+          "Registration failed. Please try again.",
+      );
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Create Account 🚀

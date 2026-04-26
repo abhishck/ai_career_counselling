@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <nav className="bg-white shadow-md w-full fixed top-0 left-0 z-50">
@@ -29,20 +31,36 @@ const Navbar = () => {
             <Link to="/resume-upload" className="hover:text-blue-600">
               Resume Analyzer
             </Link>
+            {isAuthenticated && (
+              <Link to="/chatbot" className="hover:text-blue-600">
+                Chatbot
+              </Link>
+            )}
           </div>
 
-          {/* LOGIN BUTTON */}
+          {/* AUTH BUTTONS */}
           <div className="hidden md:flex md:gap-3 md:items-center">
-            <Link to="/register">
-              <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                Get Started
+            {isAuthenticated ? (
+              <button
+                onClick={logout}
+                className="bg-slate-100 text-slate-700 px-5 py-2 rounded-lg hover:bg-slate-200 transition cursor-pointer"
+              >
+                Logout
               </button>
-            </Link>
-            <Link to="/login">
-              <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                Login
-              </button>
-            </Link>
+            ) : (
+              <>
+                <Link to="/register">
+                  <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                    Get Started
+                  </button>
+                </Link>
+                <Link to="/login">
+                  <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                    Login
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -91,18 +109,37 @@ const Navbar = () => {
           >
             Resume Analyzer
           </Link>
+          {isAuthenticated && (
+            <Link
+              to="/chatbot"
+              className="block px-6 py-3 border-b hover:bg-gray-100"
+            >
+              Chatbot
+            </Link>
+          )}
 
-          <div className="p-4 flex justify-between items-center">
-            <Link to="/register">
-              <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                Get Started
+          <div className="p-4 flex flex-col gap-3">
+            {isAuthenticated ? (
+              <button
+                onClick={logout}
+                className="w-full bg-slate-100 text-slate-700 px-5 py-2 rounded-lg hover:bg-slate-200 transition cursor-pointer"
+              >
+                Logout
               </button>
-            </Link>
-            <Link to="/login">
-              <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                Login
-              </button>
-            </Link>
+            ) : (
+              <>
+                <Link to="/register">
+                  <button className="w-full bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                    Get Started
+                  </button>
+                </Link>
+                <Link to="/login">
+                  <button className="w-full bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                    Login
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,27 +22,28 @@ const Login = () => {
     e.preventDefault();
 
     console.log("Login Data:", formData);
-    
-    const response=await api.post("/auth/login",formData);
-    if(response.data.status){
-      localStorage.setItem("token",response.data.token);
-      console.log(response.data.message);
-    }else{
-      console.log(response.data.message)
+
+    try {
+      const response = await api.post("/auth/login", formData);
+      if (response.data.status) {
+        login(response.data.token);
+        navigate("/");
+      } else {
+        alert(response.data.message || "Login failed.");
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed. Please try again.");
     }
-   
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-        
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Welcome Back 👋
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          
           {/* Email */}
           <input
             type="email"
@@ -81,10 +85,7 @@ const Login = () => {
         {/* Footer */}
         <p className="text-sm text-center text-gray-600 mt-4">
           Don’t have an account?{" "}
-          <Link
-            to="/register"
-            className="text-indigo-600 hover:underline"
-          >
+          <Link to="/register" className="text-indigo-600 hover:underline">
             Register
           </Link>
         </p>

@@ -1,32 +1,24 @@
-
-
 import About from "../components/About.jsx";
 import CTA from "../components/CTA.jsx";
 import Footer from "../components/Footer.jsx";
 import Hero from "../components/Hero.jsx";
 import HowItWorks from "../components/HowItWorks.jsx";
-import Navbar from "../components/Navbar.jsx";
 import Objective from "../components/Objective.jsx";
 import Reviews from "../components/Reviews.jsx";
 import Stats from "../components/Stats.jsx";
 
 const Home = () => {
   return (
-    <>
-     <Navbar />
     <div className="pt-16">
-
       <Hero />
-      <Stats/>
+      <Stats />
       <Objective />
-      <HowItWorks/>
+      <HowItWorks />
       <Reviews />
       <About />
-      <CTA/>
+      <CTA />
       <Footer />
-
     </div>
-    </>
   );
 };
 
