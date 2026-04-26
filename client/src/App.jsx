@@ -11,24 +11,23 @@ import CareerForm from "./pages/CareerForm.jsx";
 import CareerTest from "./pages/CareerTest.jsx";
 import Register from "./components/Register.jsx";
 import Login from "./components/Login.jsx";
+import ResumeUpload from "./pages/ResumeUpload.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-     
-      
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/career-start" element={<CareerStart/>}/>
-        <Route path="/career-form" element={<CareerForm/>}/>
-        <Route path="/career-test" element={<CareerTest/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/career-start" element={<CareerStart />} />
+        <Route path="/career-form" element={<CareerForm />} />
+        <Route path="/career-test" element={<CareerTest />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/resume-upload" element={<ResumeUpload />} />
       </Routes>
     </>
-
   );
 }
 
